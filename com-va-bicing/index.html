@@ -5,113 +5,117 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Com va? Bicing Barcelona</title>
     
-    <!-- PWA Manifest -->
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#E53935">
     
-    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
     
-    <!-- Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
-    
-    <!-- Styles -->
     <link rel="stylesheet" href="css/style.css">
-    
-    <!-- QR Scanner Library -->
     <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
 </head>
 <body>
     <div id="app" class="app-container">
         
-        <!-- Navbar -->
         <header class="navbar">
             <h1 class="logo">Com va? <span class="bicing-text">Bicing</span></h1>
+            <div class="lang-selector">
+                <i data-lucide="globe" class="lang-icon"></i>
+                <select id="lang-select">
+                    <option value="es">ES</option>
+                    <option value="en">EN</option>
+                    <option value="ca">CA</option>
+                </select>
+            </div>
         </header>
 
-        <!-- Main Content Area -->
         <main id="main-content">
             
-            <!-- View 1: Home / Action Screen -->
             <section id="view-home" class="view active">
                 <div class="hero">
-                    <i data-lucide="bike" class="hero-icon"></i>
-                    <h2>Escanea una bicicleta para ver su estado o puntuarla</h2>
+                    <img src="img/hero.png" alt="Hero" class="hero-image" id="hero-img-node" onerror="this.style.display='none'">
+                    <h2 data-i18n="homeSubtitle">Escanea una bicicleta para ver su estado o puntuarla</h2>
                 </div>
                 <button id="btn-start-scan" class="btn-primary ripple">
-                    <i data-lucide="qr-code"></i> Escanear QR
+                    <i data-lucide="qr-code"></i> <span data-i18n="btnScan">Escanear QR</span>
                 </button>
             </section>
 
-            <!-- View 2: Scanner -->
             <section id="view-scanner" class="view hidden">
                 <div class="scanner-header">
                     <button id="btn-cancel-scan" class="btn-icon">
                         <i data-lucide="arrow-left"></i>
                     </button>
-                    <h2>Escaneando...</h2>
+                    <h2 data-i18n="scanningTitle">Escaneando...</h2>
                 </div>
                 <div class="scanner-wrapper">
                     <div id="reader"></div>
                 </div>
-                <p class="scanner-hint">Apunta la cámara al código QR de la bicicleta</p>
+                <p class="scanner-hint" data-i18n="scannerHint">Apunta la cámara al código QR de la bicicleta</p>
             </section>
 
-            <!-- View 3: Bike Details & Rating -->
             <section id="view-details" class="view hidden">
                 <div class="details-header">
                     <button id="btn-back-home" class="btn-icon">
                         <i data-lucide="x"></i>
                     </button>
-                    <h2>Bicicleta <span id="display-bike-id" class="highlight">#0000</span></h2>
+                    <h2><span data-i18n="bikeTitle">Bicicleta</span> <span id="display-bike-id" class="highlight">#0000</span></h2>
                 </div>
                 
                 <div class="stats-card glass-panel">
-                    <h3>Estadísticas Medias</h3>
+                    <h3 data-i18n="statsTitle">Estadísticas Medias</h3>
                     <div class="stat-row">
-                        <span><i data-lucide="shield"></i> Frenos</span>
+                        <span><i data-lucide="shield"></i> <span data-i18n="brakes">Frenos</span></span>
                         <div class="stars-display" id="stat-frenos"></div>
                     </div>
-                    <div class="stat-row">
-                        <span><i data-lucide="zap"></i> Motor</span>
+                    <div class="stat-row" id="stat-row-motor">
+                        <span><i data-lucide="zap"></i> <span data-i18n="motor">Motor</span></span>
                         <div class="stars-display" id="stat-motor"></div>
                     </div>
                     <div class="stat-row">
-                        <span><i data-lucide="check-circle"></i> Estado Gral</span>
+                        <span><i data-lucide="check-circle"></i> <span data-i18n="generalCondition">Estado Gral</span></span>
                         <div class="stars-display" id="stat-estado"></div>
                     </div>
-                    <div class="total-ratings" id="stat-total-reviews">Basado en 0 reseñas</div>
+                    <div class="total-ratings" id="stat-total-reviews" data-i18n="basedOnZero">Basado en 0 reseñas</div>
                 </div>
 
                 <div class="rating-card glass-panel">
-                    <h3>Puntuar esta bicicleta</h3>
+                    <h3 data-i18n="rateTitle">Puntuar esta bicicleta</h3>
                     <form id="rating-form">
                         
+                        <div class="rating-group bike-type-group">
+                            <label data-i18n="bikeType">Tipo de bici</label>
+                            <select id="bike-type-select" class="custom-select">
+                                <option value="mecanica" data-i18n="typeMechanical">Mecánica</option>
+                                <option value="electrica" data-i18n="typeElectric">Eléctrica</option>
+                            </select>
+                        </div>
+
                         <div class="rating-group">
-                            <label>Frenos</label>
+                            <label data-i18n="brakes">Frenos</label>
                             <div class="star-rating-input" data-category="frenos">
                                 <span data-value="1">★</span><span data-value="2">★</span><span data-value="3">★</span><span data-value="4">★</span><span data-value="5">★</span>
                             </div>
                         </div>
                         
-                        <div class="rating-group">
-                            <label>Motor</label>
+                        <div class="rating-group" id="rating-group-motor" style="display: none;">
+                            <label data-i18n="motor">Motor</label>
                             <div class="star-rating-input" data-category="motor">
                                 <span data-value="1">★</span><span data-value="2">★</span><span data-value="3">★</span><span data-value="4">★</span><span data-value="5">★</span>
                             </div>
                         </div>
 
                         <div class="rating-group">
-                            <label>Estado General</label>
+                            <label data-i18n="generalCondition">Estado General</label>
                             <div class="star-rating-input" data-category="estado">
                                 <span data-value="1">★</span><span data-value="2">★</span><span data-value="3">★</span><span data-value="4">★</span><span data-value="5">★</span>
                             </div>
                         </div>
 
                         <button type="submit" class="btn-primary ripple" id="btn-submit-rating" disabled>
-                            Enviar Puntuación
+                            <span data-i18n="submitRating">Enviar Puntuación</span>
                         </button>
                     </form>
                 </div>
