@@ -15,7 +15,7 @@
     --star-active: #FFD166;
     --star-inactive: rgba(255, 255, 255, 0.2);
     
-    --font-family: 'FS Joey', 'Outfit', sans-serif;
+    --font-family: 'Montserrat', sans-serif;
 }
 
 * {
@@ -49,6 +49,7 @@ body {
 
 /* Typography & Layout */
 h1, h2, h3 { font-weight: 700; }
+h2, h3, label, p, span { font-family: 'Space Mono', monospace; }
 .hidden { display: none !important; }
 .view {
     flex: 1;
@@ -75,10 +76,12 @@ h1, h2, h3 { font-weight: 700; }
 }
 
 .logo {
-    font-size: 1.5rem;
-    font-family: 'FS Joey', 'Outfit', sans-serif;
-    letter-spacing: -0.5px;
-    line-height: 1.2;
+    font-size: 1.4rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    font-family: var(--font-family);
+    letter-spacing: -1.5px;
+    line-height: 1.1;
     text-align: left;
 }
 
@@ -131,9 +134,9 @@ h1, h2, h3 { font-weight: 700; }
     border: none;
     border-radius: 16px;
     padding: 16px 24px;
-    font-size: 1.2rem;
-    font-weight: 600;
-    font-family: var(--font-family);
+    font-size: 1rem;
+    font-weight: 700;
+    font-family: 'Space Mono', monospace;
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -194,9 +197,11 @@ h1, h2, h3 { font-weight: 700; }
     object-fit: contain;
 }
 .hero h2 {
-    font-size: 1.5rem;
-    font-weight: 300;
+    font-size: 1.1rem;
+    font-family: 'Space Mono', monospace;
+    font-weight: 400;
     color: var(--text-muted);
+    letter-spacing: -0.5px;
 }
 
 /* Scanner */
@@ -223,6 +228,8 @@ h1, h2, h3 { font-weight: 700; }
     text-align: center;
     margin-top: 24px;
     color: var(--text-muted);
+    font-family: 'Space Mono', monospace;
+    font-size: 0.85rem;
 }
 
 /* Details & Rating */
@@ -248,7 +255,8 @@ h1, h2, h3 { font-weight: 700; }
 
 .glass-panel h3 {
     margin-bottom: 20px;
-    font-size: 1.2rem;
+    font-size: 1rem;
+    font-family: 'Space Mono', monospace;
     border-bottom: 1px solid rgba(255,255,255,0.1);
     padding-bottom: 12px;
 }
@@ -309,8 +317,8 @@ h1, h2, h3 { font-weight: 700; }
     border: 1px solid var(--glass-border);
     padding: 8px 12px;
     border-radius: 8px;
-    font-family: var(--font-family);
-    font-size: 1rem;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.9rem;
     outline: none;
     cursor: pointer;
 }
@@ -330,7 +338,8 @@ h1, h2, h3 { font-weight: 700; }
 .app-footer {
     text-align: center;
     padding: 32px 24px;
-    font-size: 0.8rem;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
     color: #555555;
     margin-top: auto;
 }
