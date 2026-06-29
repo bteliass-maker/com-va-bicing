@@ -70,7 +70,7 @@ h2, h3, label, p, span { font-family: 'Space Mono', monospace; }
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid var(--glass-border);
+    border-bottom: 1px solid rgba(230, 57, 70, 0.3);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
 }
