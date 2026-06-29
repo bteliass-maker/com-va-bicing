@@ -6,7 +6,11 @@
     <title>Com va? Bicing Barcelona</title>
     
     <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#E53935">
+    <meta name="theme-color" content="#E63946">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="apple-touch-icon" href="img/icon-192.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="img/icon-192.png">
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -41,6 +45,15 @@
                 <button id="btn-start-scan" class="btn-primary ripple">
                     <i data-lucide="qr-code"></i> <span data-i18n="btnScan">Escanear QR</span>
                 </button>
+
+                <!-- Install Banner -->
+                <div id="install-banner" class="install-banner hidden">
+                    <div class="install-banner-text">
+                        <i data-lucide="download"></i>
+                        <span data-i18n="installPrompt">Instalar como App</span>
+                    </div>
+                    <button id="btn-install" class="btn-install" data-i18n="installBtn">Instalar</button>
+                </div>
             </section>
 
             <section id="view-scanner" class="view hidden">
@@ -136,5 +149,58 @@
     <!-- Custom Logic -->
     <script src="js/db.js"></script>
     <script src="js/app.js"></script>
+
+    <!-- Service Worker Registration & Install Prompt -->
+    <script>
+        // Register Service Worker
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./sw.js')
+                    .then(reg => console.log('[SW] Registered:', reg.scope))
+                    .catch(err => console.error('[SW] Registration failed:', err));
+            });
+        }
+
+        // PWA Install Prompt
+        let deferredPrompt;
+        const installBanner = document.getElementById('install-banner');
+        const btnInstall = document.getElementById('btn-install');
+
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            installBanner.classList.remove('hidden');
+        });
+
+        if (btnInstall) {
+            btnInstall.addEventListener('click', async () => {
+                if (!deferredPrompt) return;
+                deferredPrompt.prompt();
+                const { outcome } = await deferredPrompt.userChoice;
+                console.log('[Install]', outcome);
+                deferredPrompt = null;
+                installBanner.classList.add('hidden');
+            });
+        }
+
+        window.addEventListener('appinstalled', () => {
+            installBanner.classList.add('hidden');
+            deferredPrompt = null;
+            console.log('[Install] App installed successfully');
+        });
+
+        // iOS Safari detection — show manual instructions
+        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+        const isInStandaloneMode = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
+        if (isIOS && !isInStandaloneMode) {
+            installBanner.classList.remove('hidden');
+            if (btnInstall) {
+                btnInstall.textContent = 'Compartir ↑ → Añadir';
+                btnInstall.addEventListener('click', () => {
+                    alert('Para instalar en iPhone:\n\n1. Toca el botón Compartir (↑) de Safari\n2. Selecciona "Añadir a pantalla de inicio"\n3. Toca "Añadir"');
+                });
+            }
+        }
+    </script>
 </body>
 </html>

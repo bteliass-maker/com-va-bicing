@@ -22,7 +22,9 @@ const i18n = {
         basedOnReviews: "Basado en {n} reseña(s)",
         noReviews: "Sin reseñas previas. ¡Sé el primero!",
         thankYou: "¡Gracias por tu valoración!",
-        submitting: "Enviando..."
+        submitting: "Enviando...",
+        installPrompt: "Instalar como App",
+        installBtn: "Instalar"
     },
     en: {
         homeSubtitle: "Scan a bicycle to see its status or rate it",
@@ -43,7 +45,9 @@ const i18n = {
         basedOnReviews: "Based on {n} review(s)",
         noReviews: "No reviews yet. Be the first!",
         thankYou: "Thank you for your rating!",
-        submitting: "Submitting..."
+        submitting: "Submitting...",
+        installPrompt: "Install as App",
+        installBtn: "Install"
     },
     ca: {
         homeSubtitle: "Escaneja una bicicleta per veure'n l'estat o puntuar-la",
@@ -64,7 +68,9 @@ const i18n = {
         basedOnReviews: "Basat en {n} ressenya(es)",
         noReviews: "Sense ressenyes prèvies. Sigues el primer!",
         thankYou: "Gràcies per la teva valoració!",
-        submitting: "Enviant..."
+        submitting: "Enviant...",
+        installPrompt: "Instal·lar com a App",
+        installBtn: "Instal·lar"
     }
 };
 
